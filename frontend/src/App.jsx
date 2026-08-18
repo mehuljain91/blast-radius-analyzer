@@ -13,6 +13,9 @@ const CHANGE_TYPE_LABELS = {
   'bug-fix': { label: 'Bug Fix', color: '#58a6ff' },
   'feature-addition': { label: 'Feature Addition', color: '#58a6ff' },
   'config-change': { label: 'Config Change', color: '#d29922' },
+  'dependency-update': { label: 'Dependency Update', color: '#8b949e' },
+  'breaking-change': { label: 'Breaking Change', color: '#f85149' },
+  'unknown': { label: 'Other', color: '#8b949e' },
 }
 
 export default function App() {
@@ -84,7 +87,9 @@ export default function App() {
     if (abortRef.current) abortRef.current.abort()
   }
 
-  const changeType = report ? CHANGE_TYPE_LABELS[report.analysis.change_type] : null
+  const changeType = report
+    ? (CHANGE_TYPE_LABELS[report.analysis.change_type] || { label: report.analysis.change_type, color: '#8b949e' })
+    : null
 
   return (
     <div style={{ maxWidth: '820px', margin: '0 auto', padding: '48px 24px' }}>
